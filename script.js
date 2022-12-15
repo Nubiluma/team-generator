@@ -7,20 +7,8 @@ const labelForTeamSize = document.getElementById("team-size-label");
 const generateTeamsBtn = document.getElementById("generate-teams-btn");
 
 const state = {
-  people: [
-    "Test1",
-    "Test2",
-    "Test3",
-    "Test4",
-    "Test5",
-    "Test6",
-    "Test7",
-    "Test8",
-  ],
+  people: [],
 };
-
-renderLabelTextForSlider(); //initial rendering of label
-adjustMaxValueOfSlider(); //initial set of max value
 
 nameInputForm.addEventListener("submit", (event) => {
   event.preventDefault(); //prevent site refresh after name submit
@@ -35,12 +23,17 @@ teamSize.addEventListener("input", () => {
 
 generateTeamsBtn.addEventListener("click", generateTeams);
 
+getDataFromLocalStorage();
+render();
+
 /******************************************************************************************/
 
 function addNameToList() {
   console.log("Name to add: " + nameInput.value);
   if (nameInput.value.length > 0) {
     state.people.push(nameInput.value);
+    updateLocalStorage();
+    render();
   } else {
     console.log("input invalid");
   }
@@ -110,6 +103,7 @@ function adjustMaxValueOfSlider() {
 
 function render() {
   namesVisualContainer.innerHTML = "";
+  getDataFromLocalStorage();
 
   state.people.forEach((element) => {
     const nameSpan = document.createElement("span");
@@ -117,6 +111,9 @@ function render() {
     namesVisualContainer.appendChild(nameSpan);
     nameSpan.classList.add("name-element");
   });
+
+  renderLabelTextForSlider();
+  adjustMaxValueOfSlider();
 }
 
 /**
@@ -124,4 +121,23 @@ function render() {
  */
 function renderLabelTextForSlider() {
   labelForTeamSize.innerText = teamSize.value;
+}
+
+/******************************************************************************************/
+
+/**
+ * get data from local storage
+ */
+function getDataFromLocalStorage() {
+  const peopleNamesFromLocalStorage = localStorage.getItem("people");
+  if (peopleNamesFromLocalStorage !== null) {
+    state.people = JSON.parse(peopleNamesFromLocalStorage);
+  }
+}
+
+/**
+ * load registered people to local storage
+ */
+function updateLocalStorage() {
+  localStorage.setItem("people", JSON.stringify(state.people));
 }

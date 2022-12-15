@@ -132,4 +132,8 @@ html {
   gap: 0.5rem;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 /*****************/
