@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Team Generator</h1>
+    </header>
+    <main>
+      <section class="">
+        <form id="name-input-form">
+          <input
+            type="text"
+            name="input"
+            id="input-name"
+            placeholder="Enter Person's Name..."
+          />
+          <button id="btn-add-name">Add Person</button>
+        </form>
+        <div id="names-container" class="flex-r-c-c flex-gap-p5rem"></div>
+      </section>
+      <section>
+        <p>Select Group Size</p>
+        <input
+          type="range"
+          min="2"
+          max="12"
+          value="2"
+          name="size"
+          id="team-size"
+        />
+        <label for="size" id="team-size-label"></label>
+      </section>
+      <section>
+        <button id="generate-teams-btn">GO!</button>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
