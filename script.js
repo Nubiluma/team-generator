@@ -6,6 +6,7 @@ const namesVisualContainer = document.getElementById("names-container");
 const teamSize = document.getElementById("team-size");
 const labelForTeamSize = document.getElementById("team-size-label");
 const generateTeamsBtn = document.getElementById("generate-teams-btn");
+const generatedTeamsContainer = document.getElementById("generated-teams");
 
 const state = {
   people: [],
@@ -34,7 +35,7 @@ teamSize.addEventListener("input", () => {
   adjustMaxValueOfSlider();
 });
 
-generateTeamsBtn.addEventListener("click", generateTeams);
+generateTeamsBtn.addEventListener("click", generateTeamsWithMarkup);
 
 getDataFromLocalStorage();
 render();
@@ -67,17 +68,15 @@ function generateTeams() {
   const size = teamSize.value;
   const shuffledArray = shufflePeopleArray();
   const generatedTeams = [];
-  console.log(shuffledArray);
 
   const peoplePerGroup = Math.ceil(state.people.length / size);
-  console.log("people per group: " + peoplePerGroup);
-  console.log("remainder: " + (state.people.length % size));
+  /* console.log("people per group: " + peoplePerGroup);
+  console.log("remainder: " + (state.people.length % size)); */
   let indexOfShuffledArray = 0;
 
   for (let i = 0; i < size; i++) {
     const team = [];
     for (let j = 0; j < peoplePerGroup; j++) {
-      console.log(indexOfShuffledArray);
       if (shuffledArray[indexOfShuffledArray] != null) {
         team.push(shuffledArray[indexOfShuffledArray]);
       }
@@ -123,6 +122,35 @@ function adjustMaxValueOfSlider() {
   }
 }
 
+function generateTeamsWithMarkup() {
+  generatedTeamsContainer.innerHTML = "";
+  const generatedTeams = generateTeams();
+  let teamNameCount = 1;
+
+  generatedTeams.forEach((team) => {
+    const divTeamContainer = document.createElement("div");
+    const teamName = document.createElement("h2");
+    teamName.innerText = "Team " + teamNameCount;
+    divTeamContainer.appendChild(teamName);
+    const teamList = document.createElement("ul");
+    divTeamContainer.appendChild(teamList);
+
+    team.forEach((element) => {
+      const listItemPerson = document.createElement("li");
+      listItemPerson.innerText = element;
+      teamList.appendChild(listItemPerson);
+    });
+
+    generatedTeamsContainer.appendChild(divTeamContainer);
+    teamNameCount++;
+  });
+}
+
+/**
+ * create markup for current element of people array
+ * @param {*} arrayElement
+ * @param {*} id
+ */
 function createAsMarkupElement(arrayElement, id) {
   const span = document.createElement("span");
   span.setAttribute("draggable", true);
@@ -133,7 +161,6 @@ function createAsMarkupElement(arrayElement, id) {
 
   span.addEventListener("dragstart", function (event) {
     currentlyDragged = event.target;
-    console.log(currentlyDragged);
   });
 }
 
