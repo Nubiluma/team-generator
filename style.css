@@ -26,6 +26,11 @@ html {
 /********************************************************************/
 /* CLASS LISTS */
 
+.symbol-delete {
+  background-color: var(--clr-grey-01);
+  border: 1px solid darkslategray;
+}
+
 .name-element {
   border: 1px solid darkslategray;
 }

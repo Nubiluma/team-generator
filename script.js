@@ -1,6 +1,7 @@
 const nameInput = document.getElementById("input-name");
 const nameInputForm = document.getElementById("name-input-form");
 const addNameBtn = document.getElementById("btn-add-name");
+const deleteSymbol = document.getElementById("symbol-delete");
 const namesVisualContainer = document.getElementById("names-container");
 const teamSize = document.getElementById("team-size");
 const labelForTeamSize = document.getElementById("team-size-label");
@@ -10,11 +11,23 @@ const state = {
   people: [],
 };
 
+let currentlyDragged = null; //for drag and deleting
+
 nameInputForm.addEventListener("submit", (event) => {
   event.preventDefault(); //prevent site refresh after name submit
 });
 
 addNameBtn.addEventListener("click", addNameToList);
+
+deleteSymbol.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+
+deleteSymbol.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deleteSymbol.classList.add("symbol-delete");
+  deletePerson();
+});
 
 teamSize.addEventListener("input", () => {
   renderLabelTextForSlider();
@@ -29,14 +42,25 @@ render();
 /******************************************************************************************/
 
 function addNameToList() {
-  console.log("Name to add: " + nameInput.value);
   if (nameInput.value.length > 0) {
     state.people.push(nameInput.value);
+    nameInput.value = "";
     updateLocalStorage();
     render();
   } else {
-    console.log("input invalid");
+    console.error("input invalid");
   }
+}
+
+/**
+ * delete person from array when drag into delete symbol
+ */
+function deletePerson() {
+  const personIndex = state.people.indexOf(currentlyDragged.innerText);
+  state.people.splice(personIndex, 1);
+
+  updateLocalStorage();
+  render();
 }
 
 function generateTeams() {
@@ -99,18 +123,29 @@ function adjustMaxValueOfSlider() {
   }
 }
 
+function createAsMarkupElement(arrayElement, id) {
+  const span = document.createElement("span");
+  span.setAttribute("draggable", true);
+  span.setAttribute("data-id", id);
+  span.innerText = arrayElement.toString();
+  namesVisualContainer.appendChild(span);
+  span.classList.add("name-element");
+
+  span.addEventListener("dragstart", function (event) {
+    currentlyDragged = event.target;
+    console.log(currentlyDragged);
+  });
+}
+
 /******************************************************************************************/
 
 function render() {
   namesVisualContainer.innerHTML = "";
   getDataFromLocalStorage();
 
-  state.people.forEach((element) => {
-    const nameSpan = document.createElement("span");
-    nameSpan.innerText = element.toString();
-    namesVisualContainer.appendChild(nameSpan);
-    nameSpan.classList.add("name-element");
-  });
+  for (let i = 0; i < state.people.length; i++) {
+    createAsMarkupElement(state.people[i], i);
+  }
 
   renderLabelTextForSlider();
   adjustMaxValueOfSlider();
