@@ -7,41 +7,64 @@
     <title>Team Generator</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <header>
-      <h1>Team Generator</h1>
+  <body class="bg-clr-light-orange">
+    <header
+      class="pad-block-1p25rem pad-inline-1rem mar-bottom-2p5rem border-bottom-yellow-p75rem bg-clr-cyan box-shadow-orange"
+    >
+      <h1 class="clr-grey ft-sz-3rem">Team Generator</h1>
     </header>
     <main>
-      <section class="">
-        <form id="name-input-form">
+      <section class="mar-bottom-1p5rem flex-r-c-c">
+        <form class="" id="name-input-form">
           <input
             type="text"
             name="input"
+            class="pad-block-p25rem pad-inline-p25rem-4rem border-radius-p25rem border-solid-dark-orange bg-clr-light-grey"
             id="input-name"
             placeholder="Enter Person's Name..."
           />
-          <button id="btn-add-name">Add Person</button>
-          <span id="symbol-delete">♻️</span>
+          <button
+            class="pad-block-p25rem border-radius-p25rem ft-weight bg-clr-dark-cyan clr-yellow border-solid-cyan"
+            id="btn-add-name"
+          >
+            Add Person
+          </button>
         </form>
-        <div
-          id="names-container"
-          class="flex-r-c-c flex-gap-p5rem flex-wrap"
-        ></div>
+        <span
+          class="mar-left-p25rem bg-clr-white01 border-radius-p25rem"
+          id="symbol-delete"
+          >♻️</span
+        >
       </section>
-      <section>
-        <p>Select Group Size</p>
-        <input
-          type="range"
-          min="2"
-          max="12"
-          value="2"
-          name="size"
-          id="team-size"
-        />
-        <label for="size" id="team-size-label"></label>
+      <section
+        id="names-container"
+        class="flex-r-c-c flex-gap-p5rem flex-wrap mar-bottom-1p5rem"
+      ></section>
+      <section class="mar-bottom-p5rem">
+        <p class="mar-bottom-p5rem ft-sz-1p25rem">Group Size</p>
+        <form class="mar-bottom-1rem">
+          <input
+            type="range"
+            min="2"
+            max="12"
+            value="2"
+            name="size"
+            id="team-size"
+          />
+          <label
+            for="size"
+            class="mar-left-p25rem ft-weight-500 ft-sz-1p2rem clr-blue01"
+            id="team-size-label"
+          ></label>
+        </form>
       </section>
-      <section>
-        <button id="generate-teams-btn">GO!</button>
+      <section class="mar-bottom-p5rem">
+        <button
+          class="ft-sz-1p5rem pad-block-p25rem pad-inline-p5rem clr-grey border-solid-dark-orange"
+          id="generate-teams-btn"
+        >
+          GO!
+        </button>
       </section>
       <section
         class="flex-r-c-c flex-gap-p5rem flex-wrap"

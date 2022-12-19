@@ -105,6 +105,7 @@ function shufflePeopleArray() {
     peopleArrayCopy.splice(randomNbr, 1);
   }
 
+  console.log(shuffledArray);
   return shuffledArray;
 }
 
