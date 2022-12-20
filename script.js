@@ -1,7 +1,13 @@
+class Person {
+  constructor(name, isActive) {
+    this.name = name;
+    this.isActive = isActive;
+  }
+}
+
 const nameInput = document.getElementById("input-name");
 const nameInputForm = document.getElementById("name-input-form");
 const addNameBtn = document.getElementById("btn-add-name");
-const deleteSymbol = document.getElementById("symbol-delete");
 const namesVisualContainer = document.getElementById("names-container");
 const teamSize = document.getElementById("team-size");
 const labelForTeamSize = document.getElementById("team-size-label");
@@ -12,23 +18,11 @@ const state = {
   people: [],
 };
 
-let currentlyDragged = null; //for drag and deleting
-
 nameInputForm.addEventListener("submit", (event) => {
   event.preventDefault(); //prevent site refresh after name submit
 });
 
 addNameBtn.addEventListener("click", addNameToList);
-
-deleteSymbol.addEventListener("dragover", function (event) {
-  event.preventDefault();
-});
-
-deleteSymbol.addEventListener("dragenter", function (event) {
-  event.preventDefault();
-  deleteSymbol.classList.add("symbol-delete");
-  deletePerson();
-});
 
 teamSize.addEventListener("input", () => {
   renderLabelTextForSlider();
@@ -44,7 +38,8 @@ render();
 
 function addNameToList() {
   if (nameInput.value.length > 0) {
-    state.people.push(nameInput.value);
+    const person = new Person(nameInput.value, true);
+    state.people.push(person);
     nameInput.value = "";
     updateLocalStorage();
     render();
@@ -54,13 +49,30 @@ function addNameToList() {
 }
 
 /**
- * delete person from array when drag into delete symbol
+ * delete person from array
  */
 function deletePerson() {
-  const personIndex = state.people.indexOf(currentlyDragged.innerText);
+  const personIndex = this.parentElement.parentElement.dataset.id;
   state.people.splice(personIndex, 1);
 
   updateLocalStorage();
+  render();
+}
+
+/**
+ * switch isActive property to either true or false
+ */
+function togglePersonActiveState() {
+  const personIndex = this.parentElement.parentElement.dataset.id;
+
+  if (state.people[personIndex].isActive) {
+    state.people[personIndex].isActive = false;
+  } else {
+    state.people[personIndex].isActive = true;
+  }
+
+  updateLocalStorage();
+  adjustMaxValueOfSlider();
   render();
 }
 
@@ -69,9 +81,10 @@ function generateTeams() {
   const shuffledArray = shufflePeopleArray();
   const generatedTeams = [];
 
-  const peoplePerGroup = Math.ceil(state.people.length / size);
-  /* console.log("people per group: " + peoplePerGroup);
-  console.log("remainder: " + (state.people.length % size)); */
+  const peoplePerGroup = Math.ceil(shuffledArray.length / size);
+  console.log("people per group: " + peoplePerGroup);
+  console.log("remainder: " + (state.people.length % size));
+
   let indexOfShuffledArray = 0;
 
   for (let i = 0; i < size; i++) {
@@ -95,7 +108,7 @@ function generateTeams() {
  * @returns shuffled array
  */
 function shufflePeopleArray() {
-  const peopleArrayCopy = [...state.people];
+  const peopleArrayCopy = getActivePeopleFromArray();
   const shuffledArray = [];
 
   for (let i = 0; i < state.people.length; i++) {
@@ -109,12 +122,16 @@ function shufflePeopleArray() {
   return shuffledArray;
 }
 
+function getActivePeopleFromArray() {
+  return state.people.filter((element) => element.isActive);
+}
+
 /**
  * set max value of slider according to people count, so a group can always contain 2 people
  * if there are too few people, disable input
  */
 function adjustMaxValueOfSlider() {
-  const peopleAmount = state.people.length;
+  const peopleAmount = getActivePeopleFromArray().length;
   if (peopleAmount <= 3) {
     teamSize.disabled = true;
   } else {
@@ -138,7 +155,7 @@ function generateTeamsWithMarkup() {
 
     team.forEach((element) => {
       const listItemPerson = document.createElement("li");
-      listItemPerson.innerText = element;
+      listItemPerson.innerText = element.name;
       teamList.appendChild(listItemPerson);
     });
 
@@ -153,16 +170,38 @@ function generateTeamsWithMarkup() {
  * @param {*} id
  */
 function createAsMarkupElement(arrayElement, id) {
-  const span = document.createElement("span");
-  span.setAttribute("draggable", true);
-  span.setAttribute("data-id", id);
-  span.innerText = arrayElement.toString();
-  namesVisualContainer.appendChild(span);
-  span.classList.add("name-element");
+  const nameContainer = document.createElement("span");
+  nameContainer.setAttribute("data-id", id);
 
-  span.addEventListener("dragstart", function (event) {
-    currentlyDragged = event.target;
-  });
+  if (arrayElement.isActive) {
+    nameContainer.classList.add("name-element");
+  } else {
+    nameContainer.classList.add("name-element-disabled");
+  }
+
+  const name = document.createElement("span");
+  name.innerText = arrayElement.name;
+  nameContainer.appendChild(name);
+
+  createOptionElements(nameContainer);
+  namesVisualContainer.appendChild(nameContainer);
+}
+
+function createOptionElements(spanElement) {
+  const optionsContainer = document.createElement("span");
+  optionsContainer.classList.add("name-element-options");
+
+  const deleteOption = document.createElement("span");
+  deleteOption.innerText = "✕";
+  const disableOption = document.createElement("span");
+  disableOption.innerText = "⊘";
+
+  deleteOption.addEventListener("click", deletePerson);
+  disableOption.addEventListener("click", togglePersonActiveState);
+
+  optionsContainer.appendChild(deleteOption);
+  optionsContainer.appendChild(disableOption);
+  spanElement.appendChild(optionsContainer);
 }
 
 /******************************************************************************************/

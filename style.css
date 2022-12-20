@@ -11,6 +11,7 @@
 :root {
   --clr-light-beige: rgb(243, 220, 189);
   --clr-dark-orange: rgb(239, 92, 59);
+  --clr-dark-blue: #23374d;
 
   --clr-palette01-dark-cyan: #264653;
   --clr-palette01-cyan: #2a9d8f;
@@ -35,7 +36,7 @@ html {
 }
 
 /********************************************************************/
-/* SPECIFIC */
+/**/
 
 /********************************************************************/
 /* CLASS LISTS */
@@ -54,6 +55,38 @@ html {
   padding-bottom: 0.4rem;
   font-weight: bold;
   box-shadow: 4px 4px 2px var(--clr-palette01-orange);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name-element-disabled {
+  color: var(--clr-palette01-dark-cyan);
+  background-color: var(--clr-palette01-orange);
+  border: 2px solid var(--clr-palette01-light-orange);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  padding-bottom: 0.4rem;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name-element-options {
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15rem;
+  padding-bottom: 0.5rem;
+}
+
+.name-element-options span:hover {
+  color: var(--clr-palette01-yellow);
+  cursor: pointer;
 }
 
 /********************************************************************/
@@ -167,8 +200,8 @@ html {
   font-weight: 700;
 }
 
-.text-shadow-white {
-  text-shadow: 2px 2px 0 white;
+.text-shadow-yellow {
+  text-shadow: 2px 0px 0 var(--clr-palette01-yellow);
 }
 /*****************/
 
@@ -188,7 +221,10 @@ html {
   color: var(--clr-palette01-light-orange);
 }
 .clr-grey {
-  color: var(--clr-palette12-grey);
+  color: var(--clr-palette01-dark-cyan);
+}
+.clr-dark-blue {
+  color: var(--clr-dark-blue);
 }
 
 .bg-clr-cyan {
