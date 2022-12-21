@@ -76,30 +76,34 @@ function togglePersonActiveState() {
   render();
 }
 
+/**
+ * generate teams by splitting shuffled array and push results as array into returned array
+ * first place people evenly, then place each remaining person into already formed teams
+ * @returns generated Teams as array of arrays of people (obj)
+ */
 function generateTeams() {
   const size = teamSize.value;
   const shuffledArray = shufflePeopleArray();
   const generatedTeams = [];
 
-  const peoplePerGroup = Math.ceil(shuffledArray.length / size);
-  console.log("people per group: " + peoplePerGroup);
-  console.log("remainder: " + (state.people.length % size));
+  const peoplePerGroup = Math.floor(shuffledArray.length / size);
 
-  let indexOfShuffledArray = 0;
-
+  //divide people into groups/teams
   for (let i = 0; i < size; i++) {
     const team = [];
     for (let j = 0; j < peoplePerGroup; j++) {
-      if (shuffledArray[indexOfShuffledArray] != null) {
-        team.push(shuffledArray[indexOfShuffledArray]);
+      if (shuffledArray[0] != null) {
+        team.push(shuffledArray[0]);
+        shuffledArray.shift();
       }
-      indexOfShuffledArray++;
     }
-
     generatedTeams.push(team);
   }
 
-  console.log(generatedTeams);
+  //place remaining people each into the generated teams
+  for (let i = 0; i < shuffledArray.length; i++) {
+    generatedTeams[i].push(shuffledArray[i]);
+  }
   return generatedTeams;
 }
 
@@ -108,17 +112,18 @@ function generateTeams() {
  * @returns shuffled array
  */
 function shufflePeopleArray() {
-  const peopleArrayCopy = getActivePeopleFromArray();
+  const activePeopleArray = getActivePeopleFromArray();
+  const activePeopleCount = getActivePeopleFromArray().length;
+
   const shuffledArray = [];
 
-  for (let i = 0; i < state.people.length; i++) {
-    const randomNbr = Math.floor(Math.random() * (state.people.length - i));
+  for (let i = 0; i < activePeopleCount; i++) {
+    const randomNbr = Math.floor(Math.random() * (activePeopleCount - i));
 
-    shuffledArray.push(peopleArrayCopy[randomNbr]);
-    peopleArrayCopy.splice(randomNbr, 1);
+    shuffledArray.push(activePeopleArray[randomNbr]);
+    activePeopleArray.splice(randomNbr, 1);
   }
 
-  console.log(shuffledArray);
   return shuffledArray;
 }
 
@@ -208,6 +213,7 @@ function createOptionElements(spanElement) {
 
 function render() {
   namesVisualContainer.innerHTML = "";
+  generatedTeamsContainer.innerHTML = "";
   getDataFromLocalStorage();
 
   for (let i = 0; i < state.people.length; i++) {
