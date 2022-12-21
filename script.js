@@ -9,6 +9,7 @@ const nameInput = document.getElementById("input-name");
 const nameInputForm = document.getElementById("name-input-form");
 const addNameBtn = document.getElementById("btn-add-name");
 const namesVisualContainer = document.getElementById("names-container");
+const maxSizeInfo = document.getElementById("maxSizeInfo");
 const teamSize = document.getElementById("team-size");
 const labelForTeamSize = document.getElementById("team-size-label");
 const generateTeamsBtn = document.getElementById("generate-teams-btn");
@@ -72,7 +73,6 @@ function togglePersonActiveState() {
   }
 
   updateLocalStorage();
-  adjustMaxValueOfSlider();
   render();
 }
 
@@ -85,6 +85,8 @@ function generateTeams() {
   const size = teamSize.value;
   const shuffledArray = shufflePeopleArray();
   const generatedTeams = [];
+
+  console.log(shuffledArray.length);
 
   const peoplePerGroup = Math.floor(shuffledArray.length / size);
 
@@ -198,15 +200,21 @@ function createOptionElements(spanElement) {
 
   const deleteOption = document.createElement("span");
   deleteOption.innerText = "✕";
+  deleteOption.classList.add("name-element-options");
+  deleteOption.classList.add("flex-order-1");
   const disableOption = document.createElement("span");
   disableOption.innerText = "⊘";
+  disableOption.classList.add("name-element-options");
+  disableOption.classList.add("flex-order-minus1");
 
   deleteOption.addEventListener("click", deletePerson);
   disableOption.addEventListener("click", togglePersonActiveState);
 
-  optionsContainer.appendChild(deleteOption);
+  /* optionsContainer.appendChild(deleteOption);
   optionsContainer.appendChild(disableOption);
-  spanElement.appendChild(optionsContainer);
+  spanElement.appendChild(optionsContainer); */
+  spanElement.appendChild(deleteOption);
+  spanElement.appendChild(disableOption);
 }
 
 /******************************************************************************************/
@@ -222,6 +230,10 @@ function render() {
 
   renderLabelTextForSlider();
   adjustMaxValueOfSlider();
+
+  if (teamSize.disabled === false) {
+    maxSizeInfo.innerText = "(max: " + teamSize.max + ")";
+  }
 }
 
 /**
