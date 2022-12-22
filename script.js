@@ -64,7 +64,7 @@ function deletePerson() {
  * switch isActive property to either true or false
  */
 function togglePersonActiveState() {
-  const personIndex = this.parentElement.parentElement.dataset.id;
+  const personIndex = this.parentElement.dataset.id;
 
   if (state.people[personIndex].isActive) {
     state.people[personIndex].isActive = false;
