@@ -86,8 +86,6 @@ function generateTeams() {
   const shuffledArray = shufflePeopleArray();
   const generatedTeams = [];
 
-  console.log(shuffledArray.length);
-
   const peoplePerGroup = Math.floor(shuffledArray.length / size);
 
   //divide people into groups/teams
@@ -207,12 +205,9 @@ function createOptionElements(spanElement) {
   disableOption.classList.add("name-element-options");
   disableOption.classList.add("flex-order-minus1");
 
-  deleteOption.addEventListener("click", deletePerson);
-  disableOption.addEventListener("click", togglePersonActiveState);
+  deleteOption.addEventListener("pointerup", deletePerson);
+  disableOption.addEventListener("pointerup", togglePersonActiveState);
 
-  /* optionsContainer.appendChild(deleteOption);
-  optionsContainer.appendChild(disableOption);
-  spanElement.appendChild(optionsContainer); */
   spanElement.appendChild(deleteOption);
   spanElement.appendChild(disableOption);
 }
