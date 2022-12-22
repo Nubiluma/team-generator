@@ -44,6 +44,7 @@ function addNameToList() {
     nameInput.value = "";
     updateLocalStorage();
     render();
+    nameInput.focus();
   } else {
     console.error("input invalid");
   }
@@ -53,7 +54,7 @@ function addNameToList() {
  * delete person from array
  */
 function deletePerson() {
-  const personIndex = this.parentElement.parentElement.dataset.id;
+  const personIndex = this.parentElement.dataset.id;
   state.people.splice(personIndex, 1);
 
   updateLocalStorage();
