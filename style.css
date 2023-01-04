@@ -44,14 +44,14 @@ html {
 .name-element {
   color: var(--clr-palette01-dark-cyan);
   background-color: var(--clr-palette01-cyan);
-  border: 2px solid var(--clr-palette01-dark-cyan);
+  border: 0.15rem solid var(--clr-palette01-dark-cyan);
   border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.35rem 0.5rem;
   padding-bottom: 0.4rem;
   font-weight: bold;
-  box-shadow: 4px 4px 2px var(--clr-palette01-orange);
+  box-shadow: 0.25rem 0.25rem 0.15rem var(--clr-palette01-orange);
   display: inline-flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
 }
@@ -59,29 +59,25 @@ html {
 .name-element-disabled {
   color: var(--clr-palette01-dark-cyan);
   background-color: var(--clr-palette01-orange);
-  border: 2px solid var(--clr-palette01-light-orange);
+  border: 0.15rem solid var(--clr-palette01-light-orange);
   border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.35rem 0.5rem;
   padding-bottom: 0.4rem;
   font-weight: bold;
   display: inline-flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
 }
 
 .name-element-options {
-  font-size: 0.75rem;
-  padding-bottom: 0.5rem;
-}
-
-.name-element-options-container {
-  font-size: 0.75rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.15rem;
-  padding-bottom: 0.5rem;
+  font-weight: bold;
+  margin-bottom: 0.65rem;
+  align-self: start;
+  padding: 0;
+  border-style: none;
+  background-color: transparent;
+  color: inherit;
 }
 
 .name-element-options:hover {
@@ -94,6 +90,7 @@ html {
   width: 9rem;
   background-color: var(--clr-palette01-dark-cyan);
   border: 0.4rem solid var(--clr-palette01-dark-cyan);
+  box-shadow: 0.25rem 0.25rem 0.15rem var(--clr-dark-orange);
   border-radius: 0.5rem;
 }
 
@@ -105,7 +102,6 @@ html {
 }
 
 .team-member-list {
-  _list-style: none;
   text-align: start;
   font-weight: bold;
   height: 8.75rem;
@@ -227,7 +223,7 @@ html {
 }
 
 .text-shadow-yellow {
-  text-shadow: 2px 0px 0 var(--clr-palette01-yellow);
+  text-shadow: 0.15rem 0 0 var(--clr-palette01-yellow);
 }
 /*****************/
 
@@ -272,6 +268,9 @@ html {
   background-color: var(--clr-light-beige);
 }
 
+.accent-clr-dark-cyan {
+  accent-color: var(--clr-palette01-dark-cyan);
+}
 /*****************/
 .border-none {
   border: none;
@@ -282,13 +281,13 @@ html {
 }
 
 .border-solid-dark-orange {
-  border: 2px solid var(--clr-dark-orange);
+  border: 0.15rem solid var(--clr-dark-orange);
 }
 .border-solid-dark-cyan {
-  border: 2px solid var(--clr-palette01-dark-cyan);
+  border: 0.15rem solid var(--clr-palette01-dark-cyan);
 }
 .border-solid-cyan {
-  border: 2px solid var(--clr-palette01-cyan);
+  border: 0.15rem solid var(--clr-palette01-cyan);
 }
 
 .border-radius-p25rem {
@@ -296,7 +295,7 @@ html {
 }
 
 .box-shadow-orange {
-  box-shadow: 0px 4px 2px var(--clr-palette01-orange);
+  box-shadow: 0 0.25rem 0.15rem var(--clr-palette01-orange);
 }
 
 /*****************/

@@ -202,12 +202,12 @@ function createOptionElements(spanElement) {
   const optionsContainer = document.createElement("span");
   optionsContainer.classList.add("name-element-options");
 
-  const deleteOption = document.createElement("span");
+  const deleteOption = document.createElement("button");
   const deleteSymbol = document.createTextNode("✕");
   deleteOption.appendChild(deleteSymbol);
   deleteOption.classList.add("name-element-options");
   deleteOption.classList.add("flex-order-1");
-  const disableOption = document.createElement("span");
+  const disableOption = document.createElement("button");
   const disableSymbol = document.createTextNode("⊘");
   disableOption.appendChild(disableSymbol);
   disableOption.classList.add("name-element-options");
@@ -225,6 +225,8 @@ function createOptionElements(spanElement) {
 function render() {
   namesVisualContainer.innerHTML = "";
   generatedTeamsContainer.innerHTML = "";
+  maxSizeInfo.innerHTML = "";
+
   getDataFromLocalStorage();
 
   for (let i = 0; i < state.people.length; i++) {
@@ -244,6 +246,7 @@ function render() {
  * render number (label text) next to slider according to its value
  */
 function renderLabelTextForSlider() {
+  labelForTeamSize.innerHTML = "";
   const sizeValue = document.createTextNode(teamSize.value);
   labelForTeamSize.appendChild(sizeValue);
 }
