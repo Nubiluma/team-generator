@@ -153,15 +153,19 @@ function generateTeamsWithMarkup() {
 
   generatedTeams.forEach((team) => {
     const divTeamContainer = document.createElement("div");
+    divTeamContainer.classList.add("team-container");
     const teamName = document.createElement("h2");
-    teamName.innerText = "Team " + teamNameCount;
+    const teamHeaderTxt = document.createTextNode("Team " + teamNameCount);
+    teamName.appendChild(teamHeaderTxt);
     divTeamContainer.appendChild(teamName);
-    const teamList = document.createElement("ul");
+    const teamList = document.createElement("ol");
+    teamList.classList.add("team-member-list");
     divTeamContainer.appendChild(teamList);
 
     team.forEach((element) => {
       const listItemPerson = document.createElement("li");
-      listItemPerson.innerText = element.name;
+      const personName = document.createTextNode(element.name);
+      listItemPerson.appendChild(personName);
       teamList.appendChild(listItemPerson);
     });
 
@@ -186,7 +190,8 @@ function createAsMarkupElement(arrayElement, id) {
   }
 
   const name = document.createElement("span");
-  name.innerText = arrayElement.name;
+  const personName = document.createTextNode(arrayElement.name);
+  name.appendChild(personName);
   nameContainer.appendChild(name);
 
   createOptionElements(nameContainer);
@@ -198,11 +203,13 @@ function createOptionElements(spanElement) {
   optionsContainer.classList.add("name-element-options");
 
   const deleteOption = document.createElement("span");
-  deleteOption.innerText = "✕";
+  const deleteSymbol = document.createTextNode("✕");
+  deleteOption.appendChild(deleteSymbol);
   deleteOption.classList.add("name-element-options");
   deleteOption.classList.add("flex-order-1");
   const disableOption = document.createElement("span");
-  disableOption.innerText = "⊘";
+  const disableSymbol = document.createTextNode("⊘");
+  disableOption.appendChild(disableSymbol);
   disableOption.classList.add("name-element-options");
   disableOption.classList.add("flex-order-minus1");
 
@@ -228,7 +235,8 @@ function render() {
   adjustMaxValueOfSlider();
 
   if (teamSize.disabled === false) {
-    maxSizeInfo.innerText = "(max: " + teamSize.max + ")";
+    const maxValue = document.createTextNode("(max: " + teamSize.max + ")");
+    maxSizeInfo.appendChild(maxValue);
   }
 }
 
@@ -236,7 +244,8 @@ function render() {
  * render number (label text) next to slider according to its value
  */
 function renderLabelTextForSlider() {
-  labelForTeamSize.innerText = teamSize.value;
+  const sizeValue = document.createTextNode(teamSize.value);
+  labelForTeamSize.appendChild(sizeValue);
 }
 
 /******************************************************************************************/

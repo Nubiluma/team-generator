@@ -89,6 +89,32 @@ html {
   cursor: pointer;
 }
 
+.team-container {
+  height: 12.5rem;
+  width: 9rem;
+  background-color: var(--clr-palette01-dark-cyan);
+  border: 0.4rem solid var(--clr-palette01-dark-cyan);
+  border-radius: 0.5rem;
+}
+
+.team-container h2 {
+  padding-inline: 0.25rem;
+  padding-block: 0.1rem 0.75rem;
+  color: var(--clr-palette01-orange);
+  background-color: var(--clr-palette01-dark-cyan);
+}
+
+.team-member-list {
+  _list-style: none;
+  text-align: start;
+  font-weight: bold;
+  height: 8.75rem;
+  _padding: 0.5rem;
+  color: var(--clr-palette01-yellow);
+  background-color: var(--clr-palette01-cyan);
+  border-radius: 0.25rem;
+}
+
 /********************************************************************/
 /* UTILITIES */
 
@@ -300,6 +326,10 @@ html {
 
 .flex-gap-p75rem {
   gap: 0.75rem;
+}
+
+.flex-gap-1rem {
+  gap: 1rem;
 }
 
 .flex-wrap {
