@@ -54,8 +54,12 @@ function addNameToList() {
  * delete person from array
  */
 function deletePerson() {
-  const personIndex = this.parentElement.dataset.id;
-  state.people.splice(personIndex, 1);
+  const personIndex = this.dataset.personid;
+  if (personIndex >= 0) {
+    state.people.splice(personIndex, 1);
+  } else {
+    console.error("person id not found");
+  }
 
   updateLocalStorage();
   render();
@@ -65,7 +69,7 @@ function deletePerson() {
  * switch isActive property to either true or false
  */
 function togglePersonActiveState() {
-  const personIndex = this.parentElement.dataset.id;
+  const personIndex = this.dataset.personid;
 
   if (state.people[personIndex].isActive) {
     state.people[personIndex].isActive = false;
@@ -181,7 +185,7 @@ function generateTeamsWithMarkup() {
  */
 function createAsMarkupElement(arrayElement, id) {
   const nameContainer = document.createElement("span");
-  nameContainer.setAttribute("data-id", id);
+  nameContainer.setAttribute("data-personId", id);
 
   if (arrayElement.isActive) {
     nameContainer.classList.add("name-element");
@@ -194,27 +198,34 @@ function createAsMarkupElement(arrayElement, id) {
   name.appendChild(personName);
   nameContainer.appendChild(name);
 
-  createOptionElements(nameContainer);
+  createOptionElements(nameContainer, id);
   namesVisualContainer.appendChild(nameContainer);
 }
 
-function createOptionElements(spanElement) {
+/**
+ * append delete and disable buttons to the element
+ * @param {*} spanElement container span element of according person
+ * @param {*} dataId forwarded person id of people array
+ */
+function createOptionElements(spanElement, dataId) {
   const optionsContainer = document.createElement("span");
   optionsContainer.classList.add("name-element-options");
 
   const deleteOption = document.createElement("button");
   const deleteSymbol = document.createTextNode("✕");
-  deleteOption.appendChild(deleteSymbol);
+  deleteOption.setAttribute("data-personId", dataId);
   deleteOption.classList.add("name-element-options");
   deleteOption.classList.add("flex-order-1");
+  deleteOption.appendChild(deleteSymbol);
   const disableOption = document.createElement("button");
   const disableSymbol = document.createTextNode("⊘");
-  disableOption.appendChild(disableSymbol);
+  disableOption.setAttribute("data-personId", dataId);
   disableOption.classList.add("name-element-options");
   disableOption.classList.add("flex-order-minus1");
+  disableOption.appendChild(disableSymbol);
 
-  deleteOption.addEventListener("pointerup", deletePerson);
-  disableOption.addEventListener("pointerup", togglePersonActiveState);
+  deleteOption.addEventListener("click", deletePerson);
+  disableOption.addEventListener("click", togglePersonActiveState);
 
   spanElement.appendChild(deleteOption);
   spanElement.appendChild(disableOption);
