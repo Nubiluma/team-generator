@@ -10,40 +10,43 @@
     <title>Team Generator</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="bg-clr-light-orange">
+  <body class="linear-gradient">
     <header
-      class="pad-block-1p25rem pad-inline-1rem mar-bottom-2p5rem border-bottom-yellow-p75rem bg-clr-cyan box-shadow-orange"
+      class="pad-block-1rem pad-inline-1rem mar-bottom-1p5rem bg-clr-teal07 border-bottom-teal02-p5rem"
     >
-      <h1 class="clr-dark-blue ft-sz-3rem text-shadow-yellow">
-        Team Generator
+      <h1 class="clr-teal01 ft-sz-2p5rem flex-r-c-c flex-wrap">
+        <span>&nbsp; T e a m &nbsp;</span>
+        <span>&nbsp; G e n e r a t o r &nbsp;</span>
       </h1>
     </header>
     <main>
-      <section class="mar-bottom-1p5rem flex-r-c-c">
-        <form class="" id="name-input-form">
+      <section class="mar-bottom-1rem flex-r-c-c">
+        <form id="name-input-form">
           <input
             type="text"
             name="input"
-            class="pad-block-p25rem pad-inline-p25rem-4rem border-radius-p25rem border-solid-dark-orange bg-clr-light-grey"
+            class="pad-block-p75rem pad-inline-p5rem-4rem mar-bottom-1rem width-16rem ft-weight-500 ft-sz-1rem border-radius-p25rem border-none bg-clr-teal04"
             id="input-name"
-            placeholder="Enter Person's Name..."
+            placeholder="Enter person's name..."
           />
           <button
-            class="pad-block-p25rem border-radius-p25rem ft-weight bg-clr-dark-cyan clr-yellow border-solid-cyan"
+            class="pad-p75rem border-radius-p25rem ft-weight-500 ft-fam-arial ft-sz-1rem bg-clr-teal07 clr-teal02 border-none"
             id="btn-add-name"
           >
-            Add Person
+            A d d &nbsp;&nbsp; P e r s o n
           </button>
         </form>
       </section>
-      <section
-        id="names-container"
-        class="flex-r-c-c flex-gap-p75rem flex-wrap mar-bottom-1p5rem"
-      ></section>
+      <section class="mar-block-2rem-3rem">
+        <div
+          id="names-container"
+          class="width-85vw mar-inline-auto flex-r-c-c flex-gap-p75rem flex-wrap"
+        ></div>
+      </section>
       <section class="mar-bottom-p5rem">
-        <p class="ft-sz-1p25rem">Set Team Size</p>
+        <p class="ft-sz-1p25rem clr-teal08">Set Group Size</p>
         <p class="mar-bottom-p5rem" id="maxSizeInfo"></p>
-        <form class="mar-bottom-1rem">
+        <form class="mar-bottom-2p5rem">
           <input
             type="range"
             min="2"
@@ -51,21 +54,21 @@
             value="2"
             name="size"
             id="team-size"
-            class="accent-clr-dark-cyan"
+            class="accent-clr-teal08"
           />
           <label
             for="size"
-            class="mar-left-p25rem ft-weight-500 ft-sz-1p2rem clr-blue01"
+            class="mar-left-p25rem ft-weight-500 ft-sz-1p2rem clr-teal08"
             id="team-size-label"
           ></label>
         </form>
       </section>
       <section class="mar-bottom-p5rem">
         <button
-          class="ft-sz-1p5rem pad-block-p25rem pad-inline-p5rem clr-grey border-solid-dark-orange"
+          class="pad-p75rem border-radius-p25rem ft-weight-500 ft-fam-arial ft-sz-1rem bg-clr-teal07 clr-teal02 border-none"
           id="generate-teams-btn"
         >
-          GO!
+          G e n e r a t e &nbsp; T e a m s
         </button>
       </section>
       <section

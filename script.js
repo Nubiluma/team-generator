@@ -247,10 +247,12 @@ function render() {
   renderLabelTextForSlider();
   adjustMaxValueOfSlider();
 
-  if (teamSize.disabled === false) {
+  /* if (teamSize.disabled === false) {
     const maxValue = document.createTextNode("(max: " + teamSize.max + ")");
     maxSizeInfo.appendChild(maxValue);
   }
+
+   */
 }
 
 /**
